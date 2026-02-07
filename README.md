@@ -1,5 +1,5 @@
 # homograph_detect
-A simple Python wrapper that intercepts downloads from `curl` and pipes the output through a Unicode homograph filter.
+Python wrapper that intercepts downloads from `curl` and pipes the output through a Unicode homograph filter.
 
 ---
 
@@ -7,12 +7,12 @@ A simple Python wrapper that intercepts downloads from `curl` and pipes the outp
 
 There are 2 options for `curl` filtering: 
 
-### check_piped_curl.py
+### [check_piped_curl.py](https://github.com/kariemoorman/homograph_detect/blob/main/src/src/check_piped_curl.py)
 
 - If stdout is a terminal → just run the real curl directly (os.execv) → bypasses the homograph filter
 - If stdout is piped or redirected → run curl → pipe output through `homograph_filter.py`
 
-### check_all_curl.py
+### [check_all_curl.py](https://github.com/kariemoorman/homograph_detect/blob/main/src/check_all_curl.py)
 
 - Always filters curl output through `homograph_filter.py`, whether it’s going to a terminal, pipe, or file
 - Uses line-buffered output so the homograph filter sees content immediately
@@ -21,13 +21,21 @@ There are 2 options for `curl` filtering:
 
 ## Installation & Use
 
+- Create a target directory on your local machine:
+
+```bash
+
+mkdir -p ~/scripts
+
+```
+
 - Download scripts from repo, and place in target location:
 
 ```bash
 
 git clone https://github.com/kariemoorman/homograph_detect.git
 cd homograph_detect/src
-mv *,py ~/
+mv *.py ~/scripts/
 
 ```
 
@@ -35,9 +43,9 @@ mv *,py ~/
   
 ```bash
 
-chmod +x ~/check_piped_curl.py
-chmod +x ~/check_all_curl.py
-chmod +x ~/homograph_filter.py
+chmod +x ~/scripts/check_piped_curl.py
+chmod +x ~/scripts/check_all_curl.py
+chmod +x ~/scripts/homograph_filter.py
 
 ```
 
@@ -47,9 +55,9 @@ chmod +x ~/homograph_filter.py
 ```bash
 nano ~/.zshrc
 
-alias curl="$HOME/check_piped_curl.py"
+alias curl="$HOME/scripts/check_piped_curl.py"
 or
-alias curl="$HOME/check_all_curl.py"
+alias curl="$HOME/scripts/check_all_curl.py"
 
 source ~/.zshrc
 
