@@ -1,5 +1,13 @@
-# homograph_detect
-Python wrapper that intercepts downloads from `curl` and pipes the output through a Unicode homograph filter.
+<p align='center'><img src='homograph.png' alt='img'></p>
+<p align='center'>homograph-detect</p>
+
+
+
+---
+
+## Description 
+
+A simple, easy to interpret Python wrapper that intercepts downloads from `curl` and pipes the output through a Unicode homograph filter.
 
 ---
 
