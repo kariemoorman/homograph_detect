@@ -26,7 +26,7 @@ There are 2 options for `curl` filtering:
 ```bash
 
 git clone https://github.com/kariemoorman/homograph_detect.git
-cd homograph_detect
+cd homograph_detect/src
 mv *,py ~/
 
 ```
