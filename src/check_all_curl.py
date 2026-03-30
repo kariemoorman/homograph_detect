@@ -3,7 +3,7 @@ import os
 import sys
 import subprocess
 
-FILTER = os.path.expanduser("~/homograph_filter.py")
+FILTER = os.path.expanduser("~/scripts/homograph_filter.py")
 
 def find_real_curl():
     """Find the real curl binary on macOS."""
@@ -26,6 +26,29 @@ def find_real_curl():
 REAL_CURL = find_real_curl()
 args = sys.argv[1:]
 
+# URL-only mode: validate a URL from stdin and exit 0 (clean) or 1 (homograph)
+if args == ["--url-only"]:
+    url = sys.stdin.read().strip()
+    filter_proc = subprocess.run(
+        ["python3", FILTER],
+        input=url,
+        text=True,
+        capture_output=True
+    )
+    sys.exit(filter_proc.returncode)
+
+# Check all arguments for homograph characters BEFORE executing curl
+arg_check = subprocess.run(
+    ["python3", FILTER],
+    input="\n".join(args),
+    text=True,
+    capture_output=True
+)
+if arg_check.returncode != 0:
+    sys.stderr.write("❌ Blocked: suspicious Unicode in curl arguments (possible homograph attack)\n")
+    sys.exit(1)
+
+# Arguments are clean — execute curl and filter the response
 curl_proc = subprocess.Popen(
     [REAL_CURL] + args,
     stdout=subprocess.PIPE,
