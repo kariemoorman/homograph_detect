@@ -43,7 +43,7 @@ mkdir -p ~/scripts
 
 git clone https://github.com/kariemoorman/homograph_detect.git
 cd homograph_detect/src
-mv *.py ~/scripts/
+mv *.py ~/.scripts/
 
 ```
 
@@ -51,9 +51,9 @@ mv *.py ~/scripts/
   
 ```bash
 
-chmod +x ~/scripts/check_piped_curl.py
-chmod +x ~/scripts/check_all_curl.py
-chmod +x ~/scripts/homograph_filter.py
+chmod +x ~/.scripts/check_piped_curl.py
+chmod +x ~/.scripts/check_all_curl.py
+chmod +x ~/.scripts/homograph_filter.py
 
 ```
 
@@ -63,9 +63,9 @@ chmod +x ~/scripts/homograph_filter.py
 ```bash
 nano ~/.zshrc
 
-alias curl="$HOME/scripts/check_piped_curl.py"
+alias curl="$HOME/.scripts/check_piped_curl.py"
 or
-alias curl="$HOME/scripts/check_all_curl.py"
+alias curl="$HOME/.scripts/check_all_curl.py"
 
 source ~/.zshrc
 

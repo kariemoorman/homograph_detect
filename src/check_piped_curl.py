@@ -3,7 +3,7 @@ import os
 import sys
 import subprocess
 
-FILTER = os.path.expanduser("~/scripts/homograph_filter.py")
+FILTER = os.path.expanduser("~/.scripts/homograph_filter.py")
 
 def find_real_curl():
     system_curl = "/usr/bin/curl"
