@@ -3,7 +3,7 @@ import os
 import sys
 import subprocess
 
-FILTER = os.path.expanduser("~/homograph_filter.py")
+FILTER = os.path.expanduser("~/scripts/homograph_filter.py")
 
 def find_real_curl():
     system_curl = "/usr/bin/curl"
@@ -26,9 +26,22 @@ REAL_CURL = find_real_curl()
 
 args = sys.argv[1:]
 
+# Check all arguments for homograph characters BEFORE executing curl
+arg_check = subprocess.run(
+    ["python3", FILTER],
+    input="\n".join(args),
+    text=True,
+    capture_output=True
+)
+if arg_check.returncode != 0:
+    sys.stderr.write("❌ Blocked: suspicious Unicode in curl arguments (possible homograph attack)\n")
+    sys.exit(1)
+
+# Arguments are clean — if TTY, exec directly (no response filtering needed for interactive use)
 if sys.stdout.isatty():
     os.execv(REAL_CURL, ["curl"] + args)
 
+# Piped output — execute curl and filter the response body too
 curl_proc = subprocess.Popen(
     [REAL_CURL] + args,
     stdout=subprocess.PIPE
