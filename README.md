@@ -33,7 +33,7 @@ There are 2 options for `curl` filtering:
 
 ```bash
 
-mkdir -p ~/scripts
+mkdir -p ~/.scripts
 
 ```
 
